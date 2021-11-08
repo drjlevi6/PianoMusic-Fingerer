@@ -1,0 +1,50 @@
+%!PS
+% Paints a grayscale image using readhexstring to read a file of hex digits
+%	(which must be supplied via stdin)
+% reduces page size using setpagedevice
+
+% Note: "When Ghostscript finishes reading from the pipe, it quits 
+%		rather than going into interactive mode. "
+
+/getImageDimensions{	% push array of image dimensions onto stack
+	currentpagedevice /PageSize get
+} def
+
+/getPageHeight{	% push page height (= window height) onto stack
+	getImageDimensions aload pop exch pop
+} def
+
+/setPageSize{	% fit window size to image
+	<< /PageSize [
+		imWidth %scaleFactor mul
+		imHeight %scaleFactor mul
+	] >> setpagedevice
+} def
+
+%/scaleFactor {10} bind def
+setPageSize
+
+%scaleFactor dup scale
+0 getPageHeight translate %scaleFactor div translate
+
+/font_height {10} bind def
+/Times-Bold findfont font_height scalefont setfont
+
+/picstr{	% string to hold image's pixels as RGB triples
+	imWidth imHeight mul
+	3 mul
+	string
+} def
+ 
+imWidth
+imHeight
+8					% bits per char
+[1 0 0 -1 0 0] 	% Map unit square to source, flip vertically
+{ 
+	(/Users/jonathan/Development/PianoMusic-Fingering/pixels.txt) 
+	(r) file	% Read image data from file pstack
+	picstr readhexstring pop
+}
+
+image	% This appears to cover up anything that's already been painted, so 
+		% additional painting must come _after_ the image command
