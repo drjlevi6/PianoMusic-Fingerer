@@ -29,15 +29,15 @@
 %/font_height  { 18 } bind def
 %/Helvetica findfont font_height scalefont setfont
 %
-%/v_str { (Starts) } bind def
-%/vb_str { (Ends) } bind def
+%/v_show { (Starts) } bind def
+%/vb_show { (Ends) } bind def
 %/start_point {150 400} bind def
 %
 %start_point moveto (------> ) show
-%v_str v_show
-%v_str length font_height mul 0 exch rmoveto
+%v_show v_show % (??)
+%_show length font_height mul 0 exch rmoveto
 %(S  ------> ) show
-%vb_str vb_show
+%vb_show vb_show
 %currentpoint pop start_point exch pop moveto
 %(   ------> ) show
 %(25) v_show
