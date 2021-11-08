@@ -4,5 +4,7 @@
 # f8-fromFile-p1.ps, with fingerings added by fingerings.ps.
 
 DATE=`date '+%Y%m%d-%H%M%S'`
+
+# We need to direct GhostScript to write its file to a file that already exists; 
 gs -sDEVICE=pdfwrite -sOutputFile=fingered.pdf -dNOSAFER dimensions.ps f8-fromFile-page1.ps vshow.ps fingerings.ps
 cp fingered.pdf fingered-$DATE.pdf
