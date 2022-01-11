@@ -1,0 +1,164 @@
+%!PS
+
+/scaleFac { 300.0 72.0 div } bind def
+/bitsPerPixel {8} bind def
+/imWidth { 2550 } bind def
+/imHeight { 3300 } bind def
+
+/getImageDimensions{	% push array of image dimensions onto stack
+	currentpagedevice /PageSize get
+} def
+
+/getPageHeight{	% push page height (= window height) onto stack
+	getImageDimensions aload pop exch pop
+} def
+
+/setPageSize{	% fit window size to image
+	<< /PageSize [
+		imWidth scaleFac div
+		imHeight scaleFac div
+	] >> setpagedevice
+} def
+
+setPageSize
+
+0 getPageHeight translate %scaleFactor div translate
+
+/picstr {
+	imWidth imHeight mul  string
+} def
+
+imWidth imHeight bitsPerPixel [scaleFac 0 0 scaleFac neg 0 0] {
+(/Users/jonathan/Development/PianoMusic-Fingering/PianoMusic-Fingerer/Fuga_12-1-300dpi-hexstrings.txt) (r) file
+	picstr readhexstring pop
+} 
+image 
+
+% vshow.ps: print strings vertically
+
+/vDownshow {				% Draw string vertically,
+							%	moving downwards, starting from current point.
+							% stack: string
+	dup 0 1 3 2 roll length 1 sub {		% create for loop using string's length
+		exch dup 3 2 roll				% stack: string string index
+		1 getinterval dup show
+			stringwidth pop neg 
+			fontHeight neg rmoveto
+	} for
+	pop
+} def
+
+/vUpshow {					% Draw string vertically,
+							%	moving upwards from starting point.
+							% Requires: fontHeight
+							% stack: string
+	dup length 1  sub		% stack: string (string-length - 1)
+	0 1 3 -1 roll {					% string 0 1 increment
+		1 index exch 1 getinterval
+		dup show
+		stringwidth pop fontHeight	
+		currentpoint				% string wx fontHeight x y	% (wy = 0)
+		exch 						% string wx fontHeight y x
+		4 -1 roll sub				% string fontHeight y (x - wx)
+		3 1 roll add				% string (x - wx) (fontHeight + y)
+		moveto					
+	}for
+	pop
+} def
+
+0 -800 translate	% with this, top is 800, bottom ≈10
+% Font definition for fingerings
+/fontHeight {12} bind def
+/Times-Bold findfont fontHeight scalefont setfont
+
+1 0 0 setrgbcolor
+
+% Brace 1
+137 722 moveto
+(24) vUpshow
+215 728 moveto
+(35) vUpshow
+286 732 moveto
+(25) vUpshow
+440 725 moveto
+(3) vUpshow
+130 616 moveto
+(3) vDownshow
+163 616 moveto
+(1) vUpshow
+425 668 moveto
+(3) vUpshow
+410 657 moveto
+(LH TOP) show
+
+% Brace 2 (?)
+233 614 moveto
+(1) vUpshow
+317 615 moveto
+(3) vUpshow
+285 528 moveto
+(1) vUpshow
+414 584 moveto
+(24) vUpshow
+481 586 moveto
+(24) vUpshow
+327 478 moveto
+(5) vUpshow
+89 330 moveto
+(3) vUpshow
+121 330 moveto
+(12) show
+311 376 moveto
+(3) vUpshow
+138 438 moveto
+(35) vUpshow
+285 443 moveto
+(24) vUpshow
+361 448 moveto
+(25) vUpshow
+420 389 moveto
+(3) vUpshow
+440 450 moveto
+(4) vUpshow
+516 382 moveto
+(2) vUpshow
+194 291 moveto
+(3) vUpshow
+242 288 moveto
+(4) vUpshow
+292 294 moveto
+(5) vUpshow
+334 303 moveto
+(1) vUpshow
+353 308 moveto
+(4) vUpshow
+544 304 moveto
+(3) vUpshow
+149 157 moveto
+(4) vUpshow
+176 34 moveto
+(5) vUpshow
+196 38 moveto
+(4) vUpshow
+217 44 moveto
+(3) vUpshow
+233 56 moveto
+(2) vUpshow
+260 54 moveto
+(1) vUpshow
+321 50 moveto
+(2) vUpshow
+348 48 moveto
+(1) vUpshow
+460 154 moveto
+(3) vUpshow
+482 148 moveto
+(24) show
+504 100 moveto
+(1) vUpshow
+514 113 moveto
+(2) vUpshow
+532 147 moveto
+(5) vUpshow
+546 155 moveto
+(4) vUpshow

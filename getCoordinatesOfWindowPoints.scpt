@@ -1,0 +1,1 @@
+/Users/jonathan/Library/Scripts/Preview Scripts/getCoordinatesOfWindowPoints.scpt

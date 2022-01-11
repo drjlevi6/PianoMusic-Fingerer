@@ -5,6 +5,9 @@
 
 % Note: "When Ghostscript finishes reading from the pipe, it quits 
 %		rather than going into interactive mode. "
+/imWidth {612} bind def 	% image width before scaling
+/imHeight {792} bind def	% image height before scaling
+
 
 /getImageDimensions{	% push array of image dimensions onto stack
 	currentpagedevice /PageSize get
@@ -43,7 +46,7 @@ imHeight
 { 
 	(/Users/jonathan/Development/PianoMusic-Fingering/PianoMusic-Fingerer/pixels.txt) 
 	(r) file	% Read image data from file pstack
-	picstr readhexstring pop
+	picstr readhexstring pop pstack
 }
 
 image	% This appears to cover up anything that's already been painted, so 

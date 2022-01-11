@@ -1,0 +1,3 @@
+% Font definition for fingerings
+/font_height {10} bind def
+/Times-Bold findfont font_height scalefont setfont
